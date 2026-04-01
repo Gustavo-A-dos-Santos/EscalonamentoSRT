@@ -28,6 +28,42 @@ public class EscalonadorSRT {
         }
     }
 
+    public void imprimirResultado() {
+
+        int tempoAtual = 0;
+
+        while (!listaProcessos.isEmpty()) {
+
+            Processo menor = null;
+            int index = -1;
+
+            for (int j = 0; j < listaProcessos.size(); j++) {
+                Processo atual = listaProcessos.get(j);
+
+                if (atual.tempoChegada <= tempoAtual) {
+                    if (menor == null || atual.tempoExecucao < menor.tempoExecucao) {
+                        menor = atual;
+                        index = j;
+                    }
+                }
+            }
+
+            if (menor == null) {
+                tempoAtual++; // ninguém chegou ainda
+                continue;
+            }
+
+            System.out.print(menor.nome + " " + menor.tempoChegada + " " + menor.tempoExecucao + " // ");
+
+            menor.tempoExecucao--;
+
+            if (menor.tempoExecucao <= 0) {
+                listaProcessos.remove(index);
+            }
+
+            tempoAtual++;
+        }
+    }
 
 }
 

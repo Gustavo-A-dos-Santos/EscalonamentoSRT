@@ -16,5 +16,6 @@ void main() {
     escalonador.adicionarProcesso("j", 9, 1);
 
     escalonador.ordenarPorTempoChegada();
+    escalonador.imprimirResultado();
 
 }
