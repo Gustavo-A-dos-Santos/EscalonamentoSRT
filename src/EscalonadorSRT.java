@@ -8,14 +8,20 @@ public class EscalonadorSRT implements Interface_SRT {
     private int[] temposChegada;
     private int quantidadeProcessos;
     private int tempoAtual;
-    private int capacidadeMaxima;
+    private int totalExecucao = 0;
 
     public EscalonadorSRT(int capacidadeMaxima) {
-        this.capacidadeMaxima = capacidadeMaxima;
         nomesProcessos   = new String[capacidadeMaxima];
         temposExecucao   = new int[capacidadeMaxima];
         temposChegada    = new int[capacidadeMaxima];
         quantidadeProcessos = 0;
+    }
+
+    public void tempoTotalExecucao(){
+        for (int i = 0; i < quantidadeProcessos; i++) {
+            totalExecucao+=temposExecucao[i];
+        }
+
     }
    @Override
     public void adicionarProcesso(String nome, int tempoChegada, int tempoExecucao) {
@@ -24,14 +30,16 @@ public class EscalonadorSRT implements Interface_SRT {
         temposExecucao[quantidadeProcessos] = tempoExecucao;
         quantidadeProcessos++;
     }
-    @Override
-    public void ordenarPorTempoRestante() {
-        int[] arraytemp = new int[quantidadeProcessos];
-        for (int i = 1; i < quantidadeProcessos; i++) {
-            if (temposExecucao[i] <= tempoAtual) {
-
+    public void mostrarProcessos() {
+        for (tempoAtual=0; tempoAtual <= totalExecucao; tempoAtual++) {
+            for (int i = 0; i < quantidadeProcessos; i++) {
+                if (temposChegada[i] >= tempoAtual) {
+                    System.out.println(nomesProcessos[i]);
+                }
             }
         }
     }
+
+
 }
 
