@@ -14,4 +14,3 @@ class Processo {
         this.tempoExecucao = tempoExecucao;
     }
 }
-
