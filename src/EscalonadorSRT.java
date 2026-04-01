@@ -1,40 +1,38 @@
 package src;
 import src.Interface_SRT;
 
+import java.util.ArrayList;
+
 public class EscalonadorSRT implements Interface_SRT {
     /*Entrada Usuario*/
-    private String[] nomesProcessos;
-    private int[] temposExecucao;
-    private int[] temposChegada;
+    ArrayList<String> nomesProcessos = new ArrayList<String>();
+    ArrayList<Integer> temposExecucao = new ArrayList<Integer>();
+    ArrayList<Integer> temposChegada = new ArrayList<Integer>();
     private int quantidadeProcessos;
     private int tempoAtual;
     private int totalExecucao = 0;
 
-    public EscalonadorSRT(int capacidadeMaxima) {
-        nomesProcessos   = new String[capacidadeMaxima];
-        temposExecucao   = new int[capacidadeMaxima];
-        temposChegada    = new int[capacidadeMaxima];
-        quantidadeProcessos = 0;
-    }
-
     public void tempoTotalExecucao(){
         for (int i = 0; i < quantidadeProcessos; i++) {
-            totalExecucao+=temposExecucao[i];
+            totalExecucao+=temposExecucao.get(i);
         }
 
     }
    @Override
     public void adicionarProcesso(String nome, int tempoChegada, int tempoExecucao) {
-        nomesProcessos[quantidadeProcessos] = nome;
-        temposChegada[quantidadeProcessos] = tempoChegada;
-        temposExecucao[quantidadeProcessos] = tempoExecucao;
+        nomesProcessos.add(nome);
+        temposChegada.add(tempoChegada);
+        temposExecucao.add(tempoExecucao);
         quantidadeProcessos++;
     }
     public void mostrarProcessos() {
+        tempoTotalExecucao();
+        MyArrayList arrayOrdenado = new MyArrayList(quantidadeProcessos);
         for (tempoAtual=0; tempoAtual <= totalExecucao; tempoAtual++) {
             for (int i = 0; i < quantidadeProcessos; i++) {
-                if (temposChegada[i] >= tempoAtual) {
-                    System.out.println(nomesProcessos[i]);
+                if (temposChegada.get(i) >= tempoAtual) {
+                    arrayOrdenado.add(i);
+                    System.out.println(nomesProcessos.get(i));
                 }
             }
         }

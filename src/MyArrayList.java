@@ -1,6 +1,6 @@
+package src;
 
-
-public class MyArrayList  {
+public class MyArrayList {
     private int[] array;
     private int size;
     private int capacity;
@@ -19,7 +19,6 @@ public class MyArrayList  {
         size++;
     }
     //Adicionar em
-
     public void addFirst(int num) {
         if(isFull()){
             System.out.println("Erro ao adicionar um novo elemento, lista cheia!!");
@@ -35,7 +34,6 @@ public class MyArrayList  {
         size++;
 
     }
-
     public void addLast(int num){
         if(isFull()){
             System.out.println("Erro ao adicionar um novo elemento, lista cheia!!");
@@ -44,7 +42,6 @@ public class MyArrayList  {
         array[size] = num;
         size++;
     }
-
     public void insertAt(int num, int index){
         if(isFull()){
             System.out.println("Erro ao adicionar um novo elemento, lista cheia!!");
@@ -56,7 +53,6 @@ public class MyArrayList  {
         array[index] = num;
         size++;
     }
-
     public void removeFirst() {
         if(isEmpty()){
             System.out.println("Erro ao remover um elemento, lista vazia!!");
@@ -67,12 +63,10 @@ public class MyArrayList  {
         }
         size--;
     }
-
     public void removeLast(){
         array[size-1] = 0;
         size--;
     }
-
     public void removeAt(int index){
         if(isEmpty()){
             System.out.println("Erro ao remover um elemento, lista vazia!!");
@@ -83,7 +77,6 @@ public class MyArrayList  {
         }
         size--;
     }
-
     public void remove(int item){
         if(isEmpty()){
             System.out.println("Erro ao remover um elemento, lista vazia!!");
@@ -98,7 +91,6 @@ public class MyArrayList  {
 
         }while(true);
     }
-
     public int find(int item){
         for(int i=0;i<size;i++){
             if(array[i]==item){
@@ -116,33 +108,27 @@ public class MyArrayList  {
         }
         return false;
     }
-
     public int get(int index){
         return array[index];
     }
-
     public void set(int index, int num){
         array[index] = num;
     }
-
     public boolean isEmpty(){
         if(size==0){
             return true;
         }
         return false;
     }
-
     public boolean isFull(){
         if(size>=capacity){
             return true;
         }
         return false;
     }
-
     public void count(){
 
     }
-
     public void display(){
         for (int i=0; i<size; i++ ){
             System.out.print(array[i]+" ");
@@ -151,3 +137,4 @@ public class MyArrayList  {
     }
     public void addSorted(int num){}
 }
+
