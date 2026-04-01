@@ -30,7 +30,7 @@ public class EscalonadorSRT {
 
     public void imprimirResultado() {
 
-        int tempoAtual = 0;
+        int tempoAtual = 0;// esse tempo representa 1 unidade de processamento na CPU
 
         while (!listaProcessos.isEmpty()) { //Equanto a lista não for vazia vai executar, melhor do que pegar com base na quantidade total de processamento.
 
@@ -61,7 +61,7 @@ public class EscalonadorSRT {
                 listaProcessos.remove(index);//Após concluido ele e removido da fila
             }
 
-            tempoAtual++;//aumenta qual tempo de processamento a cpu esta
+            tempoAtual++;//aumenta em qual tempo de processamento a cpu esta
         }
     }
 
