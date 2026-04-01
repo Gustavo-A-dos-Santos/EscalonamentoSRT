@@ -29,7 +29,7 @@ public class EscalonadorSRT implements Interface_SRT {
         int[] arraytemp = new int[quantidadeProcessos];
         for (int i = 1; i < quantidadeProcessos; i++) {
             if (temposExecucao[i] <= tempoAtual) {
-                // lógica aqui
+
             }
         }
     }
