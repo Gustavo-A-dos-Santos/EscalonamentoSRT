@@ -40,23 +40,37 @@ public class EscalonadorSRT {
         while (!listaProcessos.isEmpty()) { //Equanto a lista não for vazia vai executar, melhor do que pegar com base na quantidade total de processamento.
 
             Processo menor = null;
+            Integer menorExecucao = Integer.MAX_VALUE;
             int index = -1;// — 1, pois 0 se refere a uma posição real dentro da lista e −1 não se refere, sendo melhor para não se referir a nenhum ao se inicializar e permitir a alteração ao definir um primeiro processo.
             if (anterior != null) {
                 menor = anterior;
                 index = indexAt;
             }
-
-
             for (int j = 0; j < listaProcessos.size(); j++) {
                 Processo atual = listaProcessos.get(j); // melhora o entendimento já que se refere ao processo atual de indice j no lugar de usar listaProcessos(j).variável a ser usada
-
                 if (atual.tempoChegada <= tempoAtual) {
-                    if (menor == null || atual.tempoExecucao < menor.tempoExecucao) { // condição de ou para não utilizar 2 ifs
-                        menor = atual;
-                        index = j;
+                    if (atual.tempoExecucao < menorExecucao) {
+                        menorExecucao = atual.tempoExecucao;
                     }
+
                 }
             }
+            ArrayList<Integer> possiveis = new ArrayList<>();
+
+            for (int j = 0; j < listaProcessos.size(); j++) {
+                Processo p = listaProcessos.get(j);
+
+                if (p.tempoChegada <= tempoAtual && p.tempoExecucao == menorExecucao) {
+                    possiveis.add(j);
+                }
+            }
+            Random rand = new Random();
+            int escolhido = possiveis.get(rand.nextInt(possiveis.size()));
+
+            menor = listaProcessos.get(escolhido);
+            index = escolhido;
+
+
 
             if (menor == null) {// ninguém chegou ainda caso nenhum processo tenha chegado a esse tempo todos acima desse tempo de processamento.
                 tempoAtual++; // Aumenta o tempo atual
@@ -118,7 +132,7 @@ public class EscalonadorSRT {
         return posicoes; // Devolve a lista com as posições encontradas
     }
 
-    }
+}
 
 
 
