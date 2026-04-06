@@ -37,7 +37,7 @@ public class EscalonadorSRT {
         Processo anterior = null;
         int indexAt= -1;
 
-        while (!listaProcessos.isEmpty()) { //Equanto a lista não for vazia vai executar, melhor do que pegar com base na quantidade total de processamento.
+        while (!listaProcessos.isEmpty()) { //Enquanto a lista não for vazia vai executar, melhor do que pegar com base na quantidade total de processamento.
 
             Processo menor = null;
             Integer menorExecucao = Integer.MAX_VALUE;
