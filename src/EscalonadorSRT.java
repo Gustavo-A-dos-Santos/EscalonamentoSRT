@@ -24,8 +24,7 @@ public class EscalonadorSRT {
 
             Processo menor;
             int menorExecucao = Integer.MAX_VALUE;
-            int index;// — 1, pois 0 se refere a uma posição real dentro da lista e −1 não se refere, sendo melhor para não se referir a nenhum ao se inicializar e permitir a alteração ao definir um primeiro processo.
-            // melhora o entendimento já que se refere ao processo atual de indice j no lugar de usar listaProcessos(j).variável a ser usada
+            int index;
             for (Processo atual : listaProcessos) {
                 if (atual.tempoChegada <= tempoAtual) {
                     if (atual.tempoExecucao < menorExecucao) {
