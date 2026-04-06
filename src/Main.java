@@ -8,22 +8,15 @@ void main() {
 
     // Adicionei o Menu deixado Comentado essa Parte Para Futuros Testes;
 
-   /* escalonador.adicionarProcesso("a", 1, 10);
-    escalonador.adicionarProcesso("b", 1, 2);
-    escalonador.adicionarProcesso("c", 2, 1);
-    escalonador.adicionarProcesso("d", 3, 3);
-    escalonador.adicionarProcesso("e", 4, 4);
-    escalonador.adicionarProcesso("f", 5, 2);
-    escalonador.adicionarProcesso("g", 6, 1);
-    escalonador.adicionarProcesso("h", 7, 6);
-    escalonador.adicionarProcesso("i", 8, 2);
-    escalonador.adicionarProcesso("j", 9, 1); */
-
-    Menu menu = new Menu();
-    menu.iniciar();
-   // escalonador.ordenarPorTempoChegada();
-
+    escalonador.adicionarProcesso("A", 0, 2);
+    escalonador.adicionarProcesso("B", 0, 2);
+    escalonador.adicionarProcesso("C", 0, 2);
+    escalonador.adicionarProcesso("D", 0, 2);
 
     escalonador.imprimirResultado();
+
+
+    /*enu menu = new Menu();
+    menu.iniciar();*/
 
 }

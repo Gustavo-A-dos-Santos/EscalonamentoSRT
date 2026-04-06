@@ -13,100 +13,75 @@ public class EscalonadorSRT {
 
     public void imprimirResultado() {
 
-        int tempoAtual = 0;// esse tempo representa 1 unidade de processamento na CPU
-        
-        // Acredito que tempos que Chamar os métodos de VerificarRepetidos e Sorteio aqui
-        // Antes do while Para não trocar o Processo caso empate com um já dentro da CPU
+        int tempoAtual = 0;
         Processo anterior = null;
-        int indexAt= -1;
+        int indexAt = -1;
 
-        while (!listaProcessos.isEmpty()) { //Enquanto a lista não for vazia vai executar, melhor do que pegar com base na quantidade total de processamento.
+        while (!listaProcessos.isEmpty()) {
 
-            Processo menor;
-            int menorExecucao = Integer.MAX_VALUE;
-            int index;
-            for (Processo atual : listaProcessos) {
-                if (atual.tempoChegada <= tempoAtual) {
-                    if (atual.tempoExecucao < menorExecucao) {
-                        menorExecucao = atual.tempoExecucao;
-                    }
+            int indexEscolhido = escolherProcesso(tempoAtual);
 
-                }
-            }
-            ArrayList<Integer> possiveis = new ArrayList<>();
-
-            for (int j = 0; j < listaProcessos.size(); j++) {
-                Processo p = listaProcessos.get(j);
-
-                if (p.tempoChegada <= tempoAtual && p.tempoExecucao == menorExecucao) {
-                    possiveis.add(j);
-                }
-            }
-            if (possiveis.isEmpty()) {
+            if (indexEscolhido == -1) {
                 tempoAtual++;
                 continue;
             }
-            Random rand = new Random();
+
+            Processo menor;
+            int index;
+
+            int menorExecucao = listaProcessos.get(indexEscolhido).tempoExecucao;
+
             if (anterior != null && anterior.tempoExecucao == menorExecucao) {
                 menor = anterior;
                 index = indexAt;
             } else {
-                int escolhido = possiveis.get(rand.nextInt(possiveis.size()));
-                menor = listaProcessos.get(escolhido);
-                index = escolhido;
+                menor = listaProcessos.get(indexEscolhido);
+                index = indexEscolhido;
             }
+
             System.out.print(menor.nome + " " + menor.tempoChegada + " " + menor.tempoExecucao + " // ");
 
-            menor.tempoExecucao--; // reduz o tempo de processamento/execução do processo para que ele seja concluído
+            menor.tempoExecucao--;
 
             if (menor.tempoExecucao <= 0) {
-                listaProcessos.remove(index);//Após concluído ele e removido da fila
+                listaProcessos.remove(index);
                 anterior = null;
-            } else{
+            } else {
                 anterior = menor;
                 indexAt = index;
             }
 
-            tempoAtual++;//aumenta em qual tempo de processamento a cpu esta
+            tempoAtual++;
         }
     }
 
-    public int Sorteio() {
-        ArrayList<Integer> temposJaSorteados = new ArrayList<>();
+    public int escolherProcesso(int tempoAtual) {
+        int menorExecucao = Integer.MAX_VALUE;
 
-        for (Processo listaProcesso : listaProcessos) {
-            int tempoRepetido = listaProcesso.tempoChegada;
-
-            if (!temposJaSorteados.contains(tempoRepetido)) {
-                ArrayList<Integer> posicoesEncontradas = buscarRepetidos(tempoRepetido);
-
-                if (posicoesEncontradas.size() > 1) {
-                    Random sorteado = new Random();
-                    int indiceSorteado = sorteado.nextInt(posicoesEncontradas.size());
-
-                    return posicoesEncontradas.get(indiceSorteado);
+        for (Processo atual : listaProcessos) {
+            if (atual.tempoChegada <= tempoAtual) {
+                if (atual.tempoExecucao < menorExecucao) {
+                    menorExecucao = atual.tempoExecucao;
                 }
-
-                temposJaSorteados.add(tempoRepetido);
             }
         }
-        return -1; // Caso não encontre nenhum repetido, retorna -1
-    }
-    public ArrayList<Integer> buscarRepetidos(int tempoRepetido) {
-        // Aqui é um método Tipo Arraylist porque retorna uma lista das posições
-        // exemplo processo 1 e 3 tem tempos iguais logo na posição 0 dessa lista
-        // de posições estará o 1 e na posição 1 o 3
 
-        ArrayList<Integer> posicoes = new ArrayList<>();
+        ArrayList<Integer> possiveis = new ArrayList<>();
 
-        // Percorre a lista toda procurando quem tem o tempo igual ao "tempoRepetido"
         for (int i = 0; i < listaProcessos.size(); i++) {
-            if (listaProcessos.get(i).tempoChegada == tempoRepetido) {
-                posicoes.add(i); // Guarda o índice (0, 1, 2...)
+            Processo p = listaProcessos.get(i);
+
+            if (p.tempoChegada <= tempoAtual && p.tempoExecucao == menorExecucao) {
+                possiveis.add(i);
             }
         }
 
-        return posicoes; // Devolve a lista com as posições encontradas
+        if (possiveis.isEmpty()) {
+            return -1;
+        }
+
+        Random rand = new Random();
+        return possiveis.get(rand.nextInt(possiveis.size()));
     }
 
 }
