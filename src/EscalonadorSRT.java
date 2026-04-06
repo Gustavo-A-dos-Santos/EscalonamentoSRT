@@ -1,6 +1,7 @@
 package src;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class EscalonadorSRT {
 
@@ -64,5 +65,46 @@ public class EscalonadorSRT {
         }
     }
 
-}
+    public int Sorteio() {
+        ArrayList<Integer> temposJaSorteados = new ArrayList<>();
+
+        for (int i = 0; i < listaProcessos.size(); i++) {
+            int tempoRepetido = listaProcessos.get(i).tempoChegada;
+
+            if (!temposJaSorteados.contains(tempoRepetido)) {
+                ArrayList<Integer> posicoesEncontradas = buscarRepetidos(tempoRepetido);
+
+                if (posicoesEncontradas.size() > 1) {
+                    Random sorteado = new Random();
+                    int indiceSorteado = sorteado.nextInt(posicoesEncontradas.size());
+
+                    int processoSorteado = posicoesEncontradas.get(indiceSorteado);
+                    return processoSorteado; // Agora o Java aceita o return
+                }
+
+                temposJaSorteados.add(tempoRepetido);
+            }
+        }
+        return -1; // Caso não encontre nenhum repetido, retorna -1
+    }
+    public ArrayList<Integer> buscarRepetidos(int tempoRepetido) {
+        // Aqui é um metodo Tipo Arraylist porque retorna uma listas das posições
+        // exemplo processo 1 e 3 tem tempos iguais logo na posição 0 dessa lista
+        // de posições estará o 1 e na posição 1 o 3
+
+        ArrayList<Integer> posicoes = new ArrayList<>();
+
+        // Percorre a lista toda procurando quem tem o tempo igual ao "tempoRepetido"
+        for (int i = 0; i < listaProcessos.size(); i++) {
+            if (listaProcessos.get(i).tempoChegada == tempoRepetido) {
+                posicoes.add(i); // Guarda o índice (0, 1, 2...)
+            }
+        }
+
+        return posicoes; // Devolve a lista com as posições encontradas
+    }
+
+    }
+
+
 
