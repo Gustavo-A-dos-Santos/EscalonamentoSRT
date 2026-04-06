@@ -31,6 +31,9 @@ public class EscalonadorSRT {
     public void imprimirResultado() {
 
         int tempoAtual = 0;// esse tempo representa 1 unidade de processamento na CPU
+        
+        // Acredito que tempos que Chamar os métodos de VerificarRepetidos e Sorteio aqui
+        // Antes do while Para não trocar o Processo caso empate com um já dentro da CPU
 
         while (!listaProcessos.isEmpty()) { //Equanto a lista não for vazia vai executar, melhor do que pegar com base na quantidade total de processamento.
 
@@ -79,7 +82,7 @@ public class EscalonadorSRT {
                     int indiceSorteado = sorteado.nextInt(posicoesEncontradas.size());
 
                     int processoSorteado = posicoesEncontradas.get(indiceSorteado);
-                    return processoSorteado; // Agora o Java aceita o return
+                    return processoSorteado;
                 }
 
                 temposJaSorteados.add(tempoRepetido);
