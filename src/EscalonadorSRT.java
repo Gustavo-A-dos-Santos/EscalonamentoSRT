@@ -11,7 +11,7 @@ public class EscalonadorSRT {
         listaProcessos.add(new Processo(nome, tempoChegada, tempoExecucao));
     }
 
-    /*public void ordenarPorTempoChegada() { //Não utilizada devido ao metódo imprimirResultado percorrer toda a lista sendo ela ordenada ou não
+    /*public void ordenarPorTempoChegada() { //Não utilizada devido ao method imprimirResultado percorrer toda a lista sendo ela ordenada ou não
 
         for (int i = 0; i < listaProcessos.size() - 1; i++) {
 
@@ -34,17 +34,24 @@ public class EscalonadorSRT {
         
         // Acredito que tempos que Chamar os métodos de VerificarRepetidos e Sorteio aqui
         // Antes do while Para não trocar o Processo caso empate com um já dentro da CPU
+        Processo anterior = null;
+        int indexAt= -1;
 
         while (!listaProcessos.isEmpty()) { //Equanto a lista não for vazia vai executar, melhor do que pegar com base na quantidade total de processamento.
 
             Processo menor = null;
-            int index = -1;// -1 pois 0 se refere a uma posição real dentro da lista e -1 não se refere, sendo melhor para não se referir a nenhum ao se inicializar e permitir a alteração ao definir um primeiro processo.
+            int index = -1;// — 1, pois 0 se refere a uma posição real dentro da lista e −1 não se refere, sendo melhor para não se referir a nenhum ao se inicializar e permitir a alteração ao definir um primeiro processo.
+            if (anterior != null) {
+                menor = anterior;
+                index = indexAt;
+            }
+
 
             for (int j = 0; j < listaProcessos.size(); j++) {
-                Processo atual = listaProcessos.get(j); // melhora o entendimento já que se refere ao processo atual de indice j no lugar de usar listaProcessos(j).variavel a ser usada
+                Processo atual = listaProcessos.get(j); // melhora o entendimento já que se refere ao processo atual de indice j no lugar de usar listaProcessos(j).variável a ser usada
 
                 if (atual.tempoChegada <= tempoAtual) {
-                    if (menor == null || atual.tempoExecucao < menor.tempoExecucao) { // condição de ou para nao utilizar 2 ifs
+                    if (menor == null || atual.tempoExecucao < menor.tempoExecucao) { // condição de ou para não utilizar 2 ifs
                         menor = atual;
                         index = j;
                     }
@@ -52,16 +59,21 @@ public class EscalonadorSRT {
             }
 
             if (menor == null) {// ninguém chegou ainda caso nenhum processo tenha chegado a esse tempo todos acima desse tempo de processamento.
-                tempoAtual++; // Aumenta o tempo atual e entra na proxima execução do laço "continue" não executando o que está abaixo
+                tempoAtual++; // Aumenta o tempo atual
+                // e entra na próxima execução do laço "continue" não executando o que está abaixo
                 continue;
             }
 
             System.out.print(menor.nome + " " + menor.tempoChegada + " " + menor.tempoExecucao + " // ");
 
-            menor.tempoExecucao--; // reduz o tempo de processamento/execução do processo para que ele seja concluido
+            menor.tempoExecucao--; // reduz o tempo de processamento/execução do processo para que ele seja concluído
 
             if (menor.tempoExecucao <= 0) {
-                listaProcessos.remove(index);//Após concluido ele e removido da fila
+                listaProcessos.remove(index);//Após concluído ele e removido da fila
+                anterior = null;
+            } else{
+                anterior = menor;
+                indexAt = index;
             }
 
             tempoAtual++;//aumenta em qual tempo de processamento a cpu esta
@@ -71,8 +83,8 @@ public class EscalonadorSRT {
     public int Sorteio() {
         ArrayList<Integer> temposJaSorteados = new ArrayList<>();
 
-        for (int i = 0; i < listaProcessos.size(); i++) {
-            int tempoRepetido = listaProcessos.get(i).tempoChegada;
+        for (Processo listaProcesso : listaProcessos) {
+            int tempoRepetido = listaProcesso.tempoChegada;
 
             if (!temposJaSorteados.contains(tempoRepetido)) {
                 ArrayList<Integer> posicoesEncontradas = buscarRepetidos(tempoRepetido);
@@ -81,8 +93,7 @@ public class EscalonadorSRT {
                     Random sorteado = new Random();
                     int indiceSorteado = sorteado.nextInt(posicoesEncontradas.size());
 
-                    int processoSorteado = posicoesEncontradas.get(indiceSorteado);
-                    return processoSorteado;
+                    return posicoesEncontradas.get(indiceSorteado);
                 }
 
                 temposJaSorteados.add(tempoRepetido);
@@ -91,7 +102,7 @@ public class EscalonadorSRT {
         return -1; // Caso não encontre nenhum repetido, retorna -1
     }
     public ArrayList<Integer> buscarRepetidos(int tempoRepetido) {
-        // Aqui é um metodo Tipo Arraylist porque retorna uma listas das posições
+        // Aqui é um método Tipo Arraylist porque retorna uma lista das posições
         // exemplo processo 1 e 3 tem tempos iguais logo na posição 0 dessa lista
         // de posições estará o 1 e na posição 1 o 3
 

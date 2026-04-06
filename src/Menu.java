@@ -33,7 +33,7 @@ public class Menu {
 
         System.out.println("Todos os processos foram adicionados!");
         System.out.println("Iniciando escalonamento SRT");
-
+        ec.imprimirResultado();
         sc.close();
     }
 }
