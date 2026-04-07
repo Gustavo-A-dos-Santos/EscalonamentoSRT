@@ -29,17 +29,35 @@ public class EscalonadorSRT {
             Processo menor;
             int index;
 
+            //Recupera o tempo de execução restante do processo que o método escolherProcesso elegeu.
             int menorExecucao = listaProcessos.get(indexEscolhido).tempoExecucao;
 
+            //Se já havia um processo rodando (anterior != null) E o tempo dele é IGUAL ao menor tempo encontrado
             if (anterior != null && anterior.tempoExecucao == menorExecucao) {
                 menor = anterior;
                 index = indexAt;
-            } else {
+            } else {//Caso o processo novo for mais rápido ou se a CPU estava vazia é validado o novo processo vindo do sorteio ou escolha.
                 menor = listaProcessos.get(indexEscolhido);
                 index = indexEscolhido;
             }
 
+            //timeline
+            /*
             System.out.print(menor.nome + " " + menor.tempoChegada + " " + menor.tempoExecucao + " // ");
+            System.out.println("tempo atual: " + tempoAtual);
+            System.out.println("NA CPU: " + menor.nome + " (Restante: " + menor.tempoExecucao + ")");
+            System.out.println("fila de espera");
+
+            boolean existobj = false;//verificar se existe algum objeto na fila de espera;
+            for(Processo p: listaProcessos ){
+                if(p.tempoChegada <= tempoAtual && p != menor){
+                    System.out.println("Nome: " + p.nome + "Tempo de Execução" + p.tempoExecucao);
+                    existobj = true;//validar a existencia de algum objeto na fila;
+                }
+            }
+            if(existobj == false){
+                System.out.print("Fila de espera vazia.");
+            }*/
 
             menor.tempoExecucao--;
 
@@ -51,14 +69,18 @@ public class EscalonadorSRT {
                 indexAt = index;
             }
 
+
+
+
+
             tempoAtual++;
         }
     }
 
     public int escolherProcesso(int tempoAtual) {
-        int menorExecucao = Integer.MAX_VALUE;
+        int menorExecucao = Integer.MAX_VALUE; //menorExecucao com o maior valor possível para encontrar o mínimo real
 
-        for (Processo atual : listaProcessos) {
+        for (Processo atual : listaProcessos) {//processo de repetição  verificar qual o menor tempo entre quem já chegou
             if (atual.tempoChegada <= tempoAtual) {
                 if (atual.tempoExecucao < menorExecucao) {
                     menorExecucao = atual.tempoExecucao;
@@ -66,7 +88,7 @@ public class EscalonadorSRT {
             }
         }
 
-        ArrayList<Integer> possiveis = new ArrayList<>();
+        ArrayList<Integer> possiveis = new ArrayList<>();//Cria uma lista de obj que empataram no menor tempo
 
         for (int i = 0; i < listaProcessos.size(); i++) {
             Processo p = listaProcessos.get(i);
