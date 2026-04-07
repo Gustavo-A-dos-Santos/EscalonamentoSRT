@@ -13,8 +13,15 @@ public class EscalonadorSRT {
 
     /*
     public void adicionarProcesso(String nome, int tempoChegada, int tempoExecucao) {
-        listaProcessos.add(new Processo(nome, tempoChegada, tempoExecucao));
-    }
+        listaProcessos.add(new Processo(nome, tempoChegada, tempoExecucao)); }
+
+    /* deu certo não gente, eu ia colocar isso:
+
+    public void adicionarProcesso(Processo p) { listaProcessos.add(p); }
+
+    */
+
+
 
     public void imprimirResultado() {
 
