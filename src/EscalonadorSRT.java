@@ -7,6 +7,11 @@ public class EscalonadorSRT {
 
     ArrayList<Processo> listaProcessos = new ArrayList<>();
 
+    public void adicionarProcesso(Processo p) {
+        listaProcessos.add(p);
+    }
+
+    /*
     public void adicionarProcesso(String nome, int tempoChegada, int tempoExecucao) {
         listaProcessos.add(new Processo(nome, tempoChegada, tempoExecucao));
     }
