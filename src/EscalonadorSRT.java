@@ -12,25 +12,18 @@ public class EscalonadorSRT {
     }
 
     public void imprimirResultado() {
-
         int tempoAtual = 0;
         Processo anterior = null;
         int indexAt = -1;
-
         while (!listaProcessos.isEmpty()) {
-
             int indexEscolhido = escolherProcesso(tempoAtual);
-
             if (indexEscolhido == -1) {
                 tempoAtual++;
                 continue;
             }
-
             Processo menor;
             int index;
-
             int menorExecucao = listaProcessos.get(indexEscolhido).tempoExecucao;
-
             if (anterior != null && anterior.tempoExecucao == menorExecucao) {
                 menor = anterior;
                 index = indexAt;
@@ -38,11 +31,8 @@ public class EscalonadorSRT {
                 menor = listaProcessos.get(indexEscolhido);
                 index = indexEscolhido;
             }
-
             System.out.print(menor.nome + " " + menor.tempoChegada + " " + menor.tempoExecucao + " // ");
-
             menor.tempoExecucao--;
-
             if (menor.tempoExecucao <= 0) {
                 listaProcessos.remove(index);
                 anterior = null;
@@ -50,7 +40,6 @@ public class EscalonadorSRT {
                 anterior = menor;
                 indexAt = index;
             }
-
             tempoAtual++;
         }
     }
