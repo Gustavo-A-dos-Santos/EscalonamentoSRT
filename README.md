@@ -4,7 +4,8 @@
 
 Para que o escalonador funcione, ele precisa de uma forma dinâmica de armazenar e manipular os processos. Nesta etapa, definimos como os dados entram no sistema.
 
-<img width="1063" height="205" alt="image" src="https://github.com/user-attachments/assets/cb36e580-a2ff-4134-815b-ea902a9d7eed" />
+<img width="837" height="205" alt="image" src="https://github.com/user-attachments/assets/4ef930b0-fb56-42b3-b5a8-80d3cec4583a" />
+
 
 
 #### Explicação Técnica:
@@ -14,7 +15,8 @@ Para que o escalonador funcione, ele precisa de uma forma dinâmica de armazenar
 
 Este trecho inicia a simulação do processamento. É aqui que o escalonador decide o que fazer a cada segundo ("tic-tac") do relógio da CPU.
 
-<img width="681" height="355" alt="image" src="https://github.com/user-attachments/assets/09052430-e85c-4872-a220-d882aa3b18b0" />
+<img width="689" height="491" alt="image" src="https://github.com/user-attachments/assets/796796aa-f1b1-438b-a720-d9ad03b1bb34" />
+
 
 #### Explicação Técnica:
 * **Controle de Tempo (`tempoAtual`)**: Variável fundamental que sincroniza a chegada dos processos com o relógio do sistema.
@@ -24,7 +26,7 @@ Este trecho inicia a simulação do processamento. É aqui que o escalonador dec
 
 Nesta etapa, o escalonador decide se deve manter o processo atual em execução ou realizar uma troca de contexto. Aqui também ocorre a atualização do estado do processo e o registro da execução.
 
-<img width="766" height="662" alt="image" src="https://github.com/user-attachments/assets/7bbf1f9f-2220-4406-9cc1-fb97c70b2d75" />
+<img width="743" height="556" alt="image" src="https://github.com/user-attachments/assets/5139d9a8-8212-45b4-970f-93706d80a1c4" />
 
 #### Explicação Técnica:
 * **Otimização de Troca de Contexto**: O código verifica se o processo que já estava na CPU (`anterior`) possui o mesmo tempo restante que o novo candidato selecionado. Caso positivo, o sistema mantém o processo atual. Isso evita trocas desnecessárias, que em sistemas reais consomem ciclos de processamento extras.
@@ -35,7 +37,7 @@ Nesta etapa, o escalonador decide se deve manter o processo atual em execução 
 
 Este método é responsável pela tomada de decisão da CPU. Ele filtra os processos disponíveis e seleciona aquele que garante a maior eficiência para o sistema no momento.
 
-<img width="913" height="700" alt="image" src="https://github.com/user-attachments/assets/e15cd611-3b9e-466e-9db1-c91c409e9555" />
+<img width="547" height="436" alt="image" src="https://github.com/user-attachments/assets/acae40ea-467b-4326-ac3e-f9caa41d2739" />
 
 
 #### Explicação Técnica:
@@ -46,7 +48,7 @@ Este método é responsável pela tomada de decisão da CPU. Ele filtra os proce
 
 Após a conclusão de todos os ciclos de CPU, este método formata o histórico coletado em uma tabela temporal, permitindo a visualização clara da linha do tempo do escalonamento.
 
-<img width="935" height="501" alt="image" src="https://github.com/user-attachments/assets/0235a8cd-59ae-432c-a7e7-a4c6ad33828c" />
+<img width="657" height="325" alt="image" src="https://github.com/user-attachments/assets/3f9f3d7e-9576-47d3-93d0-ab82a4a68594" />
 
 
 #### Explicação Técnica:
@@ -58,21 +60,29 @@ Após a conclusão de todos os ciclos de CPU, este método formata o histórico 
 
 O método `iniciar` gerencia a interação com o usuário, permitindo o cadastro dinâmico de múltiplos processos antes de disparar o motor de escalonamento.
 
-<img width="843" height="699" alt="image" src="https://github.com/user-attachments/assets/5e735304-f1f5-4d51-b2c0-b30400d451ab" />
+<img width="678" height="546" alt="image" src="https://github.com/user-attachments/assets/84ee89cb-ce0a-45f2-8ee2-9e8d86f7ff89" />
 
 #### Explicação Técnica:
 * **Laço `do-while`**: Utilizado para permitir que o usuário adicione quantos processos desejar de forma contínua. A condição de parada é baseada na resposta do usuário (`S/N`), conferindo flexibilidade ao simulador.
 * **Integração**: Após a coleta, o método invoca `ec.imprimirResultado()`, que é o ponto de partida para toda a lógica de processamento que explicamos anteriormente.
 
 ---
+### 7. Inicialização do Sistema: Main.java
 
-### 7. Validação e Sanitização de Dados
+O arquivo `Main.java` é o ponto de partida da nossa aplicação. Ele tem a função de organizar e dar o começo no programa, funcionando como o maestro do sistema. Suas principais responsabilidades são:
+
+1. **Instanciar o Escalonador:** Prepara o motor que vai realizar os cálculos da lógica do Shortest Remaining Time (SRT).
+2. **Ativar o Menu:** Chama a interface de usuário (`menu.iniciar()`) para abrir o console e permitir que o usuário cadastre os processos e interaja com o sistema.
+
+<img width="455" height="153" alt="image" src="https://github.com/user-attachments/assets/aadb8e22-78da-43e1-91a0-88b9cc00d5b6" />
+
+
+### 8. Validação e Sanitização de Dados
 
 Um ponto crítico em qualquer software é a garantia de que os dados inseridos são válidos. Implementei métodos específicos para "limpar" e validar as entradas do teclado.
 
-<img width="1049" height="534" alt="image" src="https://github.com/user-attachments/assets/bf36966c-cb2a-4252-bd5e-88e67ce37713" />
+<img width="644" height="428" alt="image" src="https://github.com/user-attachments/assets/fce43d1b-0db7-4d8d-92ed-797c6cdb075f" />
 
-<img width="1049" height="534" alt="image" src="https://github.com/user-attachments/assets/92b74cd7-3c31-4e0b-9634-a844deb285f8" />
 
 
 #### Explicação Técnica:
@@ -98,7 +108,7 @@ Cenário de teste utilizado para validação da lógica:
 
 O software foi desenvolvido em **Java**, estruturado de forma modular seguindo princípios de POO:
 
-- `Processo.java`: Encapsula os atributos do processo (ID, tempos de chegada, burst original, restante e finalização).
+- `Processo.java`: Encapsula os atributos básicos do processo.
 - `EscalonadorSRT.java`: Implementa a lógica de decisão, gerenciamento de filas e contabilização de ciclos de CPU.
 - `Menu.java`: Interface CLI para entrada de parâmetros e exibição de estatísticas de execução.
 ## 👩‍💻 Equipe de Desenvolvimento
