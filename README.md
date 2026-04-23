@@ -104,13 +104,16 @@ Cenário de teste utilizado para validação da lógica:
 | **CPU** | P1 | P2 | P2 | P2 | P1 | P1 | P1 | P1 |
 
 **Análise técnica:** No instante $T=1$, o processo P2 entra no sistema. Como o tempo restante de P1 é 4 e o tempo total de P2 é 3, o sistema realiza a preempção de P1 em favor da execução de P2.
+
 ## 📂 Estrutura do Projeto
 
 O software foi desenvolvido em **Java**, estruturado de forma modular seguindo princípios de POO:
 
+- `Main.java`: Ponto de entrada da aplicação, responsável por instanciar o sistema e iniciar a interface.
 - `Processo.java`: Encapsula os atributos básicos do processo.
 - `EscalonadorSRT.java`: Implementa a lógica de decisão, gerenciamento de filas e contabilização de ciclos de CPU.
 - `Menu.java`: Interface CLI para entrada de parâmetros e exibição de estatísticas de execução.
+
 ## 👩‍💻 Equipe de Desenvolvimento
 * **Gustavo Antony**
 * **Julia Gabriele**
